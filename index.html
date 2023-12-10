@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Tester</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Password Strength Tester</h1>
+        <div class="inputBox">
+            <input type="text" placeholder="User Name" id="myUsername">
+        </div>
+        <div class="inputBox">
+            <input type="text" placeholder="Email-id" id="myEmailId">
+        </div>
+        <div class="inputBox">
+            <input type="password" placeholder="password" id="myPassword">
+            <div class="show"></div>
+        </div>
+
+        <button type="submit" id="submitButton">Submit</button>
+        
+        <div class="strengthMeter"></div>
+    </div>
+
+    <script>
+        function Strength(password){
+            let i =0;
+            function isLowercase(ch) {
+                return /[a-z]/.test(ch);
+            }
+        
+            function isUppercase(ch) {
+                return /[A-Z]/.test(ch);
+            }
+        
+            function isDigit(ch) {
+                return /\d/.test(ch);
+            }
+        
+            function isSpecial(ch) {
+                return /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(ch);
+            }i
+
+            if(password.length >= 8){
+                i++
+            }
+            for (let ch of password) {
+                if (isLowercase(ch)) {
+                    i++;
+                    break;
+                }
+            }
+        
+            for (let ch of password) {
+                if (isUppercase(ch)) {
+                    i++;
+                    break;
+                }
+            }
+        
+            for (let ch of password) {
+                if (isDigit(ch)) {
+                    i++;
+                    break;
+                }
+            }
+        
+            for (let ch of password) {
+                if (isSpecial(ch)) {
+                    i++;
+                    break;
+                }
+            }
+
+            return i;
+        }
+
+        let container = document.querySelector('.container');
+        document.addEventListener("keyup",function(e){
+            let password = document.querySelector
+            ('#myPassword').value;
+
+            let strength = Strength(password);
+            if(strength == 1){
+                container.classList.add('very_weak');
+                container.classList.remove('weak');
+                container.classList.remove('medium_strong');
+                container.classList.remove('strong');
+                container.classList.remove('very_strong');
+            }
+            else if(strength == 2){
+                container.classList.remove('very_weak');
+                container.classList.add('weak');
+                container.classList.remove('medium_strong');
+                container.classList.remove('strong');
+                container.classList.remove('very_strong');
+            }
+            else if(strength == 3){
+                container.classList.remove('very_weak');
+                container.classList.remove('weak');
+                container.classList.add('medium_strong');
+                container.classList.remove('strong');
+                container.classList.remove('very_strong');
+            }
+            else if(strength == 4){
+                container.classList.remove('very_weak');
+                container.classList.remove('weak');
+                container.classList.remove('medium_strong');
+                container.classList.add('strong');
+                container.classList.remove('very_strong');
+            }
+            else if(strength >= 5){
+                container.classList.remove('very_weak');
+                container.classList.remove('weak');
+                container.classList.remove('medium_strong');
+                container.classList.remove('strong');
+                container.classList.add('very_strong');
+            }
+        })
+
+
+
+        let pswrd = document.querySelector('#myPassword');
+        let show = document.querySelector('.show');
+        show.onclick = function(){
+            if (pswrd.type === 'password'){
+                pswrd.setAttribute('type', 'text');
+                show.classList.add('hide');
+            }
+            else {
+                pswrd.setAttribute('type', 'password');
+                show.classList.remove('hide');
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Select the submit button
+            let submitButton = document.getElementById('submitButton');
+        
+            // Add click event listener
+            submitButton.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default form submission behavior
+        
+                // Show a message using alert()
+                alert('Submitted successfully!');
+                
+                // Reload the page after submission
+                location.reload();
+            });
+        });
+        
+        
+    </script>
+
+</body>
+
+</html>
